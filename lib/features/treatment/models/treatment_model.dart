@@ -1,7 +1,7 @@
 import 'medicine_model.dart';
 
 class Treatment {
-  final int treatmentId;
+  final int? treatmentId;
   final Medicine medicine;
   final DateTime start;
   final Duration frequency;
@@ -9,7 +9,7 @@ class Treatment {
   final int? dosage;
   final DateTime? end;
   Treatment({
-    required this.treatmentId,
+    this.treatmentId,
     required this.medicine,
     required this.start,
     required this.frequency,
