@@ -7,9 +7,12 @@ environment:
   sdk: ^3.6.0
 
 dependencies:
+  bloc: ^9.0.0
+  equatable: ^2.0.7
   flutter:
     sdk: flutter
-
+  flutter_bloc: ^9.0.0
+  numberpicker: ^2.1.2
   svg_icon:
     path: packages/svg_icon
 
