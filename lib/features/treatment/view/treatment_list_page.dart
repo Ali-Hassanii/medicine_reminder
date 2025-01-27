@@ -42,9 +42,15 @@ class TreatmentListPage extends StatelessWidget {
   }
 
   Widget get _floatingActionButton {
-    return FloatingActionButton(
-      onPressed: null,
-      child: Icon(Icons.add),
+    return Builder(
+      builder: (context) {
+        return FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, "addTreatmentPage");
+          },
+          child: Icon(Icons.add),
+        );
+      },
     );
   }
 }
