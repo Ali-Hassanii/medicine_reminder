@@ -46,7 +46,7 @@ class _DurationPickerState extends State<DurationPicker> {
                 infiniteLoop: true,
                 value: _days,
                 minValue: 0,
-                maxValue: 365,
+                maxValue: 90,
                 onChanged: (value) {
                   setState(() {
                     _days = value;
