@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
-import 'medicine_card.dart';
+
 import '../models/models.dart';
+
+import 'medicine_card.dart';
+import '../../add_treatment/view/add_treatment_page.dart';
 
 class TreatmentListPage extends StatelessWidget {
   const TreatmentListPage({super.key});
+
+  static get route => MaterialPageRoute<void>(
+        builder: (_) => const TreatmentListPage(),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +53,7 @@ class TreatmentListPage extends StatelessWidget {
       builder: (context) {
         return FloatingActionButton(
           onPressed: () {
-            Navigator.pushNamed(context, "addTreatmentPage");
+            Navigator.push(context, AddTreatmentPage.route);
           },
           child: Icon(Icons.add),
         );
