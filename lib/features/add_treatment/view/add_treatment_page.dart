@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medicine_reminder/features/add_treatment/view/wave_effect.dart';
 
 import '../bloc/add_treatment_bloc.dart';
-import '../model/duration_extension.dart';
 
 import 'action_button.dart';
 import 'additional_dropdown.dart';
 import 'duration_picker.dart';
+import 'wave_effect.dart';
+import 'medicine_scanner.dart';
 
 class AddTreatmentPage extends StatelessWidget {
   const AddTreatmentPage({super.key});
@@ -28,7 +28,8 @@ class AddTreatmentPage extends StatelessWidget {
         title: Text('Add Treatment'),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.sizeOf(context).width * 0.04),
         //* Scroll
         child: SingleChildScrollView(
           //* Column
@@ -42,22 +43,16 @@ class AddTreatmentPage extends StatelessWidget {
                 children: [
                   // Medicine
                   ActionButton(
-                    label: "Medicine Name",
-                    onPressed: () {
-                      // TODO: [New Feature] Medicine Scanner
-                    },
+                    icon: Icons.medication,
+                    label: "Add medicine",
+                    onPressed: () => _openMedicineScanner(context),
                   ),
 
                   // Frequency Duration
                   ActionButton(
-                    label: "Duration",
-                    onPressed: () => showDialog(
-                      context: context,
-                      builder: (_) => BlocProvider.value(
-                        value: context.read<AddTreatmentBloc>(),
-                        child: DurationPicker(),
-                      ),
-                    ),
+                    icon: Icons.timer,
+                    label: "Intake interval",
+                    onPressed: () => _chooseIntakeInterval(context),
                     controller: TextEditingController(
                       text: context
                           .read<AddTreatmentBloc>()
@@ -69,15 +64,9 @@ class AddTreatmentPage extends StatelessWidget {
 
                   // Last medicine intake
                   ActionButton(
-                    label: "Last medicine intake",
-                    onPressed: () => showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime.now().subtract(
-                        Duration(days: 30),
-                      ),
-                      lastDate: DateTime.now(),
-                    ),
+                    icon: Icons.history,
+                    label: "Last intake",
+                    onPressed: () => _chooseLastMedicineIntake(context),
                   ),
 
                   // More Info
@@ -86,6 +75,7 @@ class AddTreatmentPage extends StatelessWidget {
                     children: [
                       // Dosage number
                       ActionButton(
+                        icon: Icons.numbers,
                         label: "Dosage",
                         keyboardType: TextInputType.number,
                       ),
@@ -99,6 +89,31 @@ class AddTreatmentPage extends StatelessWidget {
       ),
       // Bottom graphics
       bottomNavigationBar: WaveEffect(),
+    );
+  }
+
+  void _openMedicineScanner(BuildContext context) {
+    Navigator.push(context, MedicineScanner.route);
+  }
+
+  void _chooseIntakeInterval(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<AddTreatmentBloc>(),
+        child: DurationPicker(),
+      ),
+    );
+  }
+
+  void _chooseLastMedicineIntake(BuildContext context) {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now().subtract(
+        Duration(days: 30),
+      ),
+      lastDate: DateTime.now(),
     );
   }
 }

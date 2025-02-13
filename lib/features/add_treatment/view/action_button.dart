@@ -3,18 +3,24 @@ import 'package:flutter/material.dart';
 class ActionButton extends StatelessWidget {
   const ActionButton({
     super.key,
-    required String? label,
+    required IconData icon,
+    required String label,
     TextEditingController? controller,
     void Function()? onPressed,
+    void Function(String)? onChanged,
     TextInputType? keyboardType,
-  })  : _label = label,
+  })  : _icon = icon,
+        _label = label,
         _controller = controller,
         _onPressed = onPressed,
+        _onChanged = onChanged,
         _keyboardType = keyboardType;
 
-  final String? _label;
+  final IconData _icon;
+  final String _label;
   final TextEditingController? _controller;
   final void Function()? _onPressed;
+  final void Function(String)? _onChanged;
   final TextInputType? _keyboardType;
 
   @override
@@ -25,11 +31,13 @@ class ActionButton extends StatelessWidget {
     return TextField(
       controller: _controller,
       onTap: () => _onTap(context),
+      onChanged: _onChanged,
       // If onPressed is null, the text field is readOnly
       readOnly: _onPressed != null,
       style: textStyle,
       keyboardType: _keyboardType,
       decoration: InputDecoration(
+        icon: Icon(_icon),
         labelText: _label,
         labelStyle: textStyle,
         fillColor: Theme.of(context).colorScheme.secondaryContainer,
