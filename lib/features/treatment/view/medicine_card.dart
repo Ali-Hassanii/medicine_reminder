@@ -1,6 +1,7 @@
+import 'package:app_core/model.dart';
 import 'package:flutter/material.dart';
 import 'package:svg_icon/svg_icon.dart';
-import '../models/models.dart';
+
 
 class MedicineCard extends StatelessWidget {
   final Medicine medicine;

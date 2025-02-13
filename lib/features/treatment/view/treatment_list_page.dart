@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../models/models.dart';
+import 'package:app_core/model.dart';
 
 import 'medicine_card.dart';
 import '../../add_treatment/view/add_treatment_page.dart';

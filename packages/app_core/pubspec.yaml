@@ -1,0 +1,6 @@
+name: app_core
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
