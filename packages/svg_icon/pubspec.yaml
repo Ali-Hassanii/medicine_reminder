@@ -1,0 +1,9 @@
+name: svg_icon
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_svg: ^2.0.16

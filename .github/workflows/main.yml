@@ -1,10 +1,10 @@
 name: "Build & Release [Android, iOS]"
 
+# TODO: CI/CD Workflow
+
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: []
 
 jobs:
   build:
@@ -47,13 +47,12 @@ jobs:
           name: Releases
           path: |
             build/app/outputs/flutter-apk/app-release.apk
-            build/app/outputs/bundle/release/app-release.aab
             build/ios_build.tar.gz
         
         # Create Release
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/flutter-apk/app-release.apk,build/app/outputs/bundle/release/app-release.aab,build/ios_build.tar.gz"
+          artifacts: "build/app/outputs/flutter-apk/app-release.apk,build/ios_build.tar.gz"
           tag: v${{ github.RUN_NUMBER }}
           token: ${{ secrets.TOKEN }}
