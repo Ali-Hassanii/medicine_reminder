@@ -1,10 +1,10 @@
 name: "Build & Release [Android, iOS]"
 
+# TODO: CI/CD Workflow
+
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: []
 
 jobs:
   build:
