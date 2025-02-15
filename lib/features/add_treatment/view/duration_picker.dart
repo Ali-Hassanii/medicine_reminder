@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medicine_reminder/features/add_treatment/bloc/add_treatment_bloc.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class DurationPicker extends StatefulWidget {
-  const DurationPicker({super.key});
+  const DurationPicker(
+      {super.key,
+      required Duration initialInterval,
+      required void Function(Duration interval) onIntervalChanged})
+      : _initialInterval = initialInterval,
+        _onIntervalChanged = onIntervalChanged;
+
+  final Duration _initialInterval;
+  final void Function(Duration interval) _onIntervalChanged;
 
   @override
   State<DurationPicker> createState() => _DurationPickerState();
 }
 
 class _DurationPickerState extends State<DurationPicker> {
-  late int _days;
-  late int _hours;
-  late int _minutes;
-
-  @override
-  void initState() {
-    super.initState();
-    final initialValue =
-        context.read<AddTreatmentBloc>().state.duration ?? Duration.zero;
-    _days = initialValue.inDays;
-    _hours = initialValue.inHours % 24;
-    _minutes = initialValue.inMinutes % 60;
-  }
+  late int days = widget._initialInterval.inDays;
+  late int hours = widget._initialInterval.inHours % 24;
+  late int minutes = widget._initialInterval.inMinutes % 60;
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +40,12 @@ class _DurationPickerState extends State<DurationPicker> {
               Text("Days"),
               NumberPicker(
                 infiniteLoop: true,
-                value: _days,
+                value: days,
                 minValue: 0,
                 maxValue: 90,
                 onChanged: (value) {
                   setState(() {
-                    _days = value;
+                    days = value;
                   });
                 },
               ),
@@ -63,12 +59,12 @@ class _DurationPickerState extends State<DurationPicker> {
               Text("Hours"),
               NumberPicker(
                 infiniteLoop: true,
-                value: _hours,
+                value: hours,
                 minValue: 0,
                 maxValue: 23,
                 onChanged: (value) {
                   setState(() {
-                    _hours = value;
+                    hours = value;
                   });
                 },
               ),
@@ -82,13 +78,13 @@ class _DurationPickerState extends State<DurationPicker> {
               Text("Minutes"),
               NumberPicker(
                 infiniteLoop: true,
-                value: _minutes,
+                value: minutes,
                 minValue: 0,
                 maxValue: 59,
                 step: 5,
                 onChanged: (value) {
                   setState(() {
-                    _minutes = value;
+                    minutes = value;
                   });
                 },
               ),
@@ -109,12 +105,9 @@ class _DurationPickerState extends State<DurationPicker> {
       ),
       TextButton(
         onPressed: () {
-          final duration = Duration(
-            days: _days,
-            hours: _hours,
-            minutes: _minutes,
+          widget._onIntervalChanged(
+            Duration(days: days, hours: hours, minutes: minutes),
           );
-          context.read<AddTreatmentBloc>().add(FormDurationChanged(duration));
           Navigator.of(context).pop();
         },
         child: Text("OK"),
