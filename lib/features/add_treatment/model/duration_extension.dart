@@ -1,20 +1,21 @@
-extension DurationToTreatmentDuration on Duration {
-  String get toTreatmentDuration {
-    String out = "";
-
+extension DurationExtension on Duration {
+  String get toFormattedString {
+    final int days = inDays;
     final int hours = inHours % 24;
     final int minutes = inMinutes % 60;
 
+    String out = "";
+
     // Day
-    if (inDays == 1) {
+    if (days == 1) {
       out += "Each day ";
-    } else if (inDays > 1) {
-      out += "Every $inDays days ";
+    } else if (days > 1) {
+      out += "Every $days days ";
     }
 
     // Hour
     if (hours > 0) {
-      if (inDays > 0) {
+      if (days > 0) {
         out += "and ";
       } else {
         out += "Every ";
@@ -24,7 +25,7 @@ extension DurationToTreatmentDuration on Duration {
 
     // Minute
     if (minutes > 0) {
-      if (inDays > 0 || hours > 0) {
+      if (days > 0 || hours > 0) {
         out += "and ";
       } else {
         out += "Every ";
